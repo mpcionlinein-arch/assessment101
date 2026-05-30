@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>MPCI DCA-101 Assessment | Fundamentals of Computer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e5e5e5;
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 12px;
+        }
+
+        .assessment-wrapper {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            padding: 24px 22px;
+        }
+
+        .institute-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .institute-header h1 {
+            font-size: 1.5rem;
+            color: #008069;
+            letter-spacing: -0.5px;
+        }
+
+        .institute-header h2 {
+            font-size: 1.15rem;
+            color: #1f2c38;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #1f2c38;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #008069;
+        }
+
+        .error-msg {
+            color: #dc4c4c;
+            font-size: 0.7rem;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .start-btn {
+            background: #008069;
+            color: white;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .start-btn:active {
+            background: #006454;
+        }
+
+        .form-copyright {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #8696a0;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #e9edef;
+        }
+
+        /* Quiz Container - WhatsApp background */
+        .quiz-container {
+            background-color: #efeae2;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 85vh;
+            max-height: 800px;
+        }
+
+        .chat-header {
+            background: #ffffff;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e9edef;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .bot-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .bot-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .bot-info h3 {
+            color: #111b21;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .bot-info p {
+            color: #54656f;
+            font-size: 0.7rem;
+        }
+
+        /* Timer Badge - made bigger and more visible */
+        .timer-badge {
+            background: #1f2c38;
+            padding: 8px 16px;
+            border-radius: 60px;
+            margin-left: auto;
+            font-weight: 800;
+            font-family: monospace;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            border: 1px solid #ffd966;
+        }
+        .timer-label {
+            font-size: 0.75rem;
+            color: #ffdf8c;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .timer-digits {
+            background: #000000cc;
+            color: #ffdf8c;
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background-color: #efeae2;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+            animation: fadeSlideUp 0.25s ease-out;
+        }
+
+        .bot-message { align-items: flex-start; }
+        .user-message { align-items: flex-end; }
+
+        .bubble {
+            padding: 10px 14px;
+            border-radius: 18px;
+            line-height: 1.45;
+            font-size: 0.9rem;
+            word-break: break-word;
+            max-width: 95%;
+        }
+
+        .bot-bubble {
+            background: #ffffff;
+            color: #111b21;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
+
+        .user-bubble {
+            background: #d9f0e1;
+            color: #111b21;
+            border-bottom-right-radius: 4px;
+        }
+
+        .typing-bubble {
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #7e8b98;
+            border-radius: 50%;
+            animation: blinkTyping 1.3s infinite ease-in-out;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes blinkTyping {
+            0%, 60%, 100% { transform: scale(0.6); opacity: 0.5; }
+            30% { transform: scale(1); opacity: 1; }
+        }
+
+        .options-grid {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-btn {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1a2c3e;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            width: 100%;
+            transition: 0.1s;
+        }
+
+        .option-btn:hover {
+            background: #edf2f7;
+        }
+
+        .disabled-opt {
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .input-area {
+            background: #ffffff;
+            border-top: 1px solid #e9edef;
+            padding: 12px 16px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .answer-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #dee2e6;
+            border-radius: 24px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .answer-input:focus {
+            border-color: #008069;
+        }
+
+        .send-btn {
+            background: #008069;
+            border: none;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 24px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .send-btn:disabled {
+            background: #c8d6d0;
+            cursor: not-allowed;
+        }
+
+        .quiz-footer {
+            background: #ffffff;
+            padding: 12px 18px;
+            border-top: 1px solid #e9edef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .counter {
+            background: #f0f2f5;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #1f2c38;
+        }
+
+        .counter span {
+            color: #008069;
+            font-weight: 700;
+        }
+
+        .inline-feedback {
+            display: inline-flex;
+            margin-left: 8px;
+            font-size: 1rem;
+        }
+
+        /* Question mark color changed to black */
+        .question-mark {
+            color: black;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        /* Modal Popup Styles - centered */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .result-modal {
+            background: white;
+            border-radius: 28px;
+            max-width: 360px;
+            width: 90%;
+            padding: 28px 22px;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.25);
+            animation: modalPop 0.3s ease;
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .result-modal h3 {
+            color: #008069;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+        .result-details {
+            text-align: left;
+            margin: 16px 0;
+            padding: 12px;
+            background: #f7f9fc;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .result-details p {
+            margin: 6px 0;
+            word-break: break-word;
+        }
+        .grade-badge {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 12px 0;
+        }
+        .final-marks-note {
+            background: #fff3e0;
+            padding: 8px 12px;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            color: #b45f06;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 600;
+            border-left: 3px solid #f1c40f;
+        }
+        .close-modal-btn {
+            background: #008069;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden {
+            display: none;
+        }
+        
+        /* Save indicator */
+        .saving-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #008069;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .saving-indicator.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="assessment-wrapper" id="appWrapper">
+    <!-- Student Details Form -->
+    <div id="formSection" class="form-container">
+        <div class="institute-header">
+            <h1>MIZORAM PROFESSIONAL<br>COMPUTER INSTITUTE</h1>
+            <h2>MPCI DCA-101 Assessment</h2>
+            <p style="margin-top: 8px; color: #54656f;">Fundamentals of Computer</p>
+        </div>
+        <div class="form-group">
+            <label>Student Name :</label>
+            <input type="text" id="studentName" placeholder="Enter full name" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Address :</label>
+            <input type="text" id="studentAddress" placeholder="Enter address" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Phone Number :</label>
+            <input type="tel" id="studentPhone" placeholder="10-digit mobile number" maxlength="10" autocomplete="off">
+            <div class="error-msg" id="phoneError">⚠️ Please enter a valid 10-digit phone number</div>
+        </div>
+        <div class="form-group">
+            <label>Date :</label>
+            <input type="date" id="studentDate" value="">
+        </div>
+        <button class="start-btn" id="startQuizBtn">▶ START ASSESSMENT</button>
+        <div class="form-copyright">
+            © 2026 MPCI Assessment. All Rights Reserved.
+        </div>
+    </div>
+
+    <!-- Quiz Container (hidden initially) -->
+    <div id="quizSection" class="quiz-container hidden">
+        <div class="chat-header">
+            <div class="bot-avatar">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX7UiWGTZVJxTttCkLspg3OxLcN2exeU4I2Q&s" alt="MPCI Logo">
+            </div>
+            <div class="bot-info">
+                <h3>MPCI QuizBot • DCA-101</h3>
+                <p>Fundamentals of Computer | 40 Marks</p>
+            </div>
+            <!-- Timer Badge Bigger & Clear -->
+            <div class="timer-badge" id="quizTimerBadge">
+                <span class="timer-label">⏱️ TIME LEFT</span>
+                <span id="timerMinutes" class="timer-digits">05:00</span>
+            </div>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="input-area">
+            <input type="text" class="answer-input" id="answerInput" placeholder="Type a, b, c, d or option name..." autocomplete="off">
+            <button class="send-btn" id="sendBtn">➤ Send</button>
+        </div>
+        <div class="quiz-footer">
+            <div class="counter" id="progressCounter">Q0 / 40 - Score <span>0</span> points</div>
+        </div>
+    </div>
+</div>
+
+<!-- Saving Indicator -->
+<div id="savingIndicator" class="saving-indicator">📤 Saving to Google Sheets...</div>
+
+<!-- Modal Popup for Result -->
+<div id="resultModal" class="modal-overlay">
+    <div class="result-modal">
+        <h3>🏁 DCA-101 Assessment Completed</h3>
+        <div class="result-details" id="modalResultDetails">
+            <!-- Dynamic content -->
+        </div>
+        <button class="close-modal-btn" id="closeModalBtn">OK</button>
+    </div>
+</div>
+
+<script>
+    // ==================== GOOGLE SHEETS CONFIGURATION ====================
+    // Your Google Apps Script Web App URL - FULLY CONFIGURED
+    const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwQcGI8na-vYVaCJxeRCJQlrxnq7yLe82f3swWyNRtUIrTl3eitKPINp5NAfqyjWPU/exec";
+    
+    // Function to save quiz results to Google Sheets (MPCI_Quiz-101)
+    async function saveToGoogleSheet(studentData, scoreObtained, gradeMessage, isAutoTimeout = false) {
+        const indicator = document.getElementById('savingIndicator');
+        if (indicator) indicator.classList.add('show');
+        
+        const payload = {
+            name: studentData.name,
+            address: studentData.address,
+            phone: studentData.phone,
+            date: studentData.date,
+            score: scoreObtained,
+            grade: gradeMessage,
+            status: isAutoTimeout ? "Auto-closed (5 min timeout)" : "Completed"
+        };
+        
+        try {
+            const response = await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+            console.log("✅ Quiz result successfully saved to Google Sheets (MPCI_Quiz-101)");
+            if (indicator) {
+                indicator.style.background = "#2e7d32";
+                indicator.innerHTML = "✅ Saved to Google Sheets!";
+                setTimeout(() => {
+                    indicator.classList.remove('show');
+                    indicator.style.background = "#008069";
+                    indicator.innerHTML = "📤 Saving to Google Sheets...";
+                }, 2000);
+            }
+        } catch (error) {
+            console.error("❌ Error saving to Google Sheets:", error);
+            if (indicator) {
+                indicator.style.background = "#dc4c4c";
+                indicator.innerHTML = "⚠️ Save failed - Check connection";
+                setTimeout(() => {
+                    indicator.classList.remove('show');
+                    indicator.style.background = "#008069";
+                    indicator.innerHTML = "📤 Saving to Google Sheets...";
+                }, 3000);
+            }
+        }
+    }
+    
+    // ==================== 40 QUESTIONS BANK ====================
+    const userNewMCQs = [
+        { q: "Copy Right grants exclusive rights to use the work such as", a: "Copying", b: "Modifying", c: "Distribution", d: "All of the above", correct: "d", hasDiagram: false },
+        { q: "Banks, Hospital and Railways usually used one type of the following Computer System", a: "Super Computer", b: "Mainframe Computer", c: "PDA", d: "Tablet", correct: "b", hasDiagram: false },
+        { q: "A portable computer used by people need computing resources whenever they go are known as", a: "Tower PC", b: "Personal Computer", c: "Ipad", d: "Laptop", correct: "d", hasDiagram: false },
+        { q: "Full form of BASIC is", a: "Beginner’s All-Purpose System Installation Code", b: "Beginner’s Akk-Purpose Symbolic Installation Coding", c: "Beginner’s All-Purpose Symbolic Instruction Code", d: "None of the above", correct: "c", hasDiagram: false },
+        { q: "A firmware refers to sequence of instruction substituted for", a: "Operating System", b: "Hardware", c: "Application Software", d: "None of the above", correct: "a", hasDiagram: false },
+        { q: "An ideal output device used by Architecture and engineer for producing high precision output is known as", a: "Plotter", b: "Digital Controller", c: "Mouse", d: "Keyboard", correct: "a", hasDiagram: false },
+        { q: "Which of the following is not input device?", a: "Printer", b: "Digital Controller", c: "MICR Reader", d: "Scanner", correct: "a", hasDiagram: false }
+    ];
+    
+    const coreQuestions = [
+        { q: "Full form of CPU is", a: "Control Program Unit", b: "Central Power Unit", c: "Central Processing Unit", d: "Circuit Power Utility", correct: "c", hasDiagram: false },
+        { q: "All the mathematical and logical operations in a computer is performed by", a: "ALU", b: "Control Unit", c: "Memory Unit", d: "Register", correct: "a", hasDiagram: false },
+        { q: "In a computer system a special unit of memory is used to speed up the rate of process and transfer, which is known as", a: "Temp Folder", b: "Register", c: "Data Bank", d: "Control Circuit", correct: "b", hasDiagram: false },
+        { q: "RAM and ROM are one kind of", a: "Main Memory", b: "Secondary Storage", c: "Magnetic Storage", d: "OS Memory", correct: "a", hasDiagram: false },
+        { q: "The clock speed of a processor is measured in", a: "Read and Write speed", b: "Transfer per unit time", c: "Bits per second", d: "Megahertz or Gigahertz", correct: "d", hasDiagram: false },
+        { q: "Additional memory used in a computer to overcome limitation of primary memory is known as", a: "Basic Memory", b: "Open Memory", c: "Secondary Storage", d: "RAM", correct: "c", hasDiagram: false },
+        { q: "A kilobytes equals", a: "1024 Bits", b: "1240 Bits", c: "1024 Bytes", d: "100000 Bits", correct: "c", hasDiagram: false },
+        { q: "Which of the following is an Optical Disk storage system?", a: "DVD", b: "SSD", c: "DRAM", d: "EPROM", correct: "a", hasDiagram: false },
+        { q: "A rate at which a computer read or writes data in a memory is known as", a: "Writing Rate", b: "Memory speed", c: "Transfer Rate", d: "Download speed", correct: "c", hasDiagram: false },
+        { q: "The process of creating a copy of some data from a computer system to another storage device is known as", a: "Disk Backup", b: "Virtual Copying", c: "Data Duplicating", d: "Data Backup", correct: "d", hasDiagram: false },
+        { q: "An output device of a computer includes", a: "Plotter", b: "Scanner", c: "Joy Stick", d: "Keyboard", correct: "a", hasDiagram: false },
+        { q: "The most popular point hard copy output device is", a: "Printer", b: "Bar Code Reader", c: "Monitor", d: "Joy Stick", correct: "a", hasDiagram: false },
+        { q: "The most popular point and draw input device is", a: "Track Ball", b: "Mouse", c: "Joy Stick", d: "Plotters", correct: "b", hasDiagram: false },
+        { q: "Full form of OMR is", a: "Optical Mix Reader", b: "Optical Mark Reader", c: "Optical Matrix Reader", d: "Optical Mode Recorder", correct: "b", hasDiagram: false },
+        { q: "Which among the following printing device prints one character at a time?", a: "Laser Printer", b: "Inkjet Printer", c: "Dot-Matrix Printer", d: "Drum Printer", correct: "c", hasDiagram: false },
+        { q: "Computer software is classified mainly into two categories, such as", a: "System Software and Application Software", b: "Utility Software and Processing Software", c: "Free Software and paid Software", d: "Processing Software and Operating Software", correct: "a", hasDiagram: false },
+        { q: "Which of the following is a system software?", a: "Personal Assistance Software", b: "Antimalware Software", c: "Programming Language translator", d: "Android Software", correct: "c", hasDiagram: false },
+        { q: "A set of one or more programs,which controls the operation of a computer is known as", a: "Processing Software", b: "System Software", c: "Application Software", d: "Middleware", correct: "b", hasDiagram: false },
+        { q: "A language acceptable to a computer system is known as", a: "Computer Languages", b: "Number Coding", c: "GPU Languages", d: "AI Languages", correct: "a", hasDiagram: false },
+        { q: "The only language understand by a computer without using any translator is", a: "Machine language", b: "Assembly language", c: "High level language", d: "Binary language", correct: "a", hasDiagram: false },
+        { q: "C Programming language is written in", a: "Computer language", b: "Machine language", c: "Assembly language", d: "High level language", correct: "d", hasDiagram: false },
+        { q: "To convert Assembly language program into Machine language we used", a: "Assembler", b: "Code converter", c: "Interpreter", d: "translator", correct: "a", hasDiagram: false },
+        { q: "The most portable computer among the following is", a: "Desktop Computer", b: "Notebook Computer", c: "Work Station", d: "Tower PC", correct: "b", hasDiagram: false },
+        { q: "Full form of NIC is", a: "Network Internet Card", b: "Net Inlet Card", c: "Network Interface Card", d: "Network Internal Components", correct: "c", hasDiagram: false },
+        { q: "The most commonly used configuration in Personal Computer includes", a: "Monitor", b: "Keyboard", c: "Mouse", d: "All of the above", correct: "d", hasDiagram: false },
+        { q: "The features of Tablet PC includes", a: "Light weight", b: "Hand writing recognition", c: "Voice recognition", d: "All of the above", correct: "d", hasDiagram: false },
+        { q: "The Information Technology Act 2000 (ITA-2000) was notified on", a: "7th November 2000", b: "3rd October 2018", c: "17th November 2000", d: "7th October 2000", correct: "c", hasDiagram: false },
+        { q: "The Information Technology Act 2000 (ITA-2000) amendment bill 2006 has been passed by Indian parliament on", a: "7th November 2000", b: "3rd October 2018", c: "23rd December 2000", d: "7th October 2000", correct: "c", hasDiagram: false },
+        { q: "Total number of sections in ITA 2000 is", a: "94", b: "104", c: "14", d: "4", correct: "a", hasDiagram: false },
+        { q: "Full form of ITA is", a: "Information Treaty Act 2000", b: "Individual Technology Act 2000", c: "Intellectual Treaty Act 2000", d: "Information Technology Act 2000", correct: "d", hasDiagram: false }
+    ];
+    
+    const extraFinalQuestions = [
+        { q: "Which memory type is non-volatile and stores firmware?", a: "RAM", b: "Cache", c: "ROM", d: "Register", correct: "c", hasDiagram: false },
+        { q: "What is the full form of ALU?", a: "Arithmetic Logic Unit", b: "Array Logic Unit", c: "Arithmetic Local Unit", d: "Advanced Logic Unit", correct: "a", hasDiagram: false },
+        { q: "Which of the following is a volatile memory?", a: "ROM", b: "Flash Memory", c: "RAM", d: "Hard Disk", correct: "c", hasDiagram: false }
+    ];
+    
+    const first30Core = coreQuestions.slice(0, 30);
+    const quizData = [...userNewMCQs, ...first30Core, ...extraFinalQuestions];
+    while(quizData.length < 40) quizData.push({ q: "Sample: What is 2+2?", a: "3", b: "4", c: "5", d: "6", correct: "b", hasDiagram: false });
+    const TOTAL = 40;
+    
+    // Global quiz state
+    let currentIndex = 0;
+    let quizActive = true;
+    let answered = new Array(TOTAL).fill(false);
+    let selectedAns = new Array(TOTAL).fill(null);
+    let score = 0;
+    let studentInfo = { name: "", address: "", phone: "", date: "" };
+    
+    // Timer variables: 5 minutes = 300 seconds auto close
+    let timeLeft = 300;
+    let timerInterval = null;
+    let quizAutoClosed = false;
+    
+    // DOM elements
+    const formSection = document.getElementById('formSection');
+    const quizSection = document.getElementById('quizSection');
+    const startBtn = document.getElementById('startQuizBtn');
+    const sendBtn = document.getElementById('sendBtn');
+    const answerInput = document.getElementById('answerInput');
+    const chatMessages = document.getElementById('chatMessages');
+    const progressSpan = document.getElementById('progressCounter');
+    const phoneInput = document.getElementById('studentPhone');
+    const phoneError = document.getElementById('phoneError');
+    const modalOverlay = document.getElementById('resultModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const timerMinutesSpan = document.getElementById('timerMinutes');
+    
+    function updateTimerDisplay() {
+        if (timerMinutesSpan) {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timerMinutesSpan.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        if (timeLeft <= 0 && !quizAutoClosed && quizActive) {
+            quizAutoClosed = true;
+            quizActive = false;
+            if (timerInterval) clearInterval(timerInterval);
+            answerInput.disabled = true;
+            sendBtn.disabled = true;
+            showResultModal(true);
+        }
+    }
+    
+    function startGlobalTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (!quizActive) return;
+            if (timeLeft <= 1) {
+                timeLeft = 0;
+                updateTimerDisplay();
+                clearInterval(timerInterval);
+                if (!quizAutoClosed) {
+                    quizAutoClosed = true;
+                    quizActive = false;
+                    answerInput.disabled = true;
+                    sendBtn.disabled = true;
+                    showResultModal(true);
+                }
+            } else {
+                timeLeft--;
+                updateTimerDisplay();
+            }
+        }, 1000);
+    }
+    
+    function scrollBottom() { chatMessages.scrollTop = chatMessages.scrollHeight; }
+    
+    function updateProgress() {
+        progressSpan.innerHTML = `Q${currentIndex+1} / ${TOTAL} - Score <span>${score}</span> points`;
+    }
+    
+    function validatePhone(phone) {
+        return /^\d{10}$/.test(phone);
+    }
+    
+    function normalizeAnswer(input, question) {
+        let inp = input.trim().toLowerCase();
+        if (inp === 'a' || inp === 'b' || inp === 'c' || inp === 'd') return inp;
+        const opts = ['a','b','c','d'];
+        for(let opt of opts) {
+            let optText = question[opt].toLowerCase();
+            if (optText === inp || optText.includes(inp) || inp.includes(optText)) return opt;
+        }
+        return null;
+    }
+    
+    async function showTyping(callback) {
+        const typingDiv = document.createElement('div');
+        typingDiv.classList.add('message', 'bot-message');
+        typingDiv.id = 'tempTyping';
+        typingDiv.innerHTML = `<div class="typing-bubble"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span> MPCI Bot is typing...</div>`;
+        chatMessages.appendChild(typingDiv);
+        scrollBottom();
+        await new Promise(r => setTimeout(r, 550));
+        document.getElementById('tempTyping')?.remove();
+        callback();
+        scrollBottom();
+    }
+    
+    function renderBotQuestion(idx) {
+        const q = quizData[idx];
+        const isAnswered = answered[idx];
+        const chosen = selectedAns[idx];
+        const optionKeys = ['a','b','c','d'];
+        let optionsHtml = '';
+        
+        if (!isAnswered && quizActive) {
+            optionsHtml = `<div class="options-grid" id="opt-grid-${idx}">`;
+            optionKeys.forEach(key => {
+                optionsHtml += `<button class="option-btn" data-opt="${key}" data-idx="${idx}">${key.toUpperCase()}. ${q[key]}</button>`;
+            });
+            optionsHtml += `</div>`;
+        } else {
+            optionsHtml = `<div class="options-grid disabled-opt">`;
+            optionKeys.forEach(key => {
+                let feedback = '';
+                if (chosen === key && q.correct === key) feedback = `<span class="inline-feedback" style="color:#008069;">✅</span>`;
+                else if (chosen === key && q.correct !== key) feedback = `<span class="inline-feedback" style="color:#dc4c4c;">❌</span>`;
+                optionsHtml += `<div class="option-btn" style="cursor:default; background:#f2f5f9;">${key.toUpperCase()}. ${q[key]} ${feedback}</div>`;
+            });
+            optionsHtml += `</div>`;
+        }
+        
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('message', 'bot-message');
+        msgDiv.id = `botMsg-${idx}`;
+        msgDiv.innerHTML = `<div class="bubble bot-bubble"><strong>MPCI QuizBot</strong><br>Q${idx+1}. ${q.q} <span class="question-mark">?</span><br>${optionsHtml}</div>`;
+        chatMessages.appendChild(msgDiv);
+        scrollBottom();
+        
+        if (!isAnswered && quizActive) {
+            const btns = document.querySelectorAll(`#opt-grid-${idx} .option-btn`);
+            btns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if (!quizActive || answered[idx]) return;
+                    const selected = btn.getAttribute('data-opt');
+                    const qidx = parseInt(btn.getAttribute('data-idx'));
+                    processAnswer(qidx, selected);
+                });
+            });
+        }
+    }
+    
+    async function processAnswer(idx, selectedLetter) {
+        if (answered[idx]) return;
+        const question = quizData[idx];
+        const isCorrect = (question.correct === selectedLetter);
+        if (isCorrect) score++;
+        answered[idx] = true;
+        selectedAns[idx] = selectedLetter;
+        
+        const oldMsg = document.getElementById(`botMsg-${idx}`);
+        if (oldMsg) oldMsg.remove();
+        
+        const selectedText = question[selectedLetter];
+        const icon = isCorrect ? '✅' : '❌';
+        const userDiv = document.createElement('div');
+        userDiv.classList.add('message', 'user-message');
+        userDiv.innerHTML = `<div class="bubble user-bubble">${selectedLetter.toUpperCase()}. ${selectedText} ${icon}</div>`;
+        chatMessages.appendChild(userDiv);
+        scrollBottom();
+        
+        await renderBotQuestion(idx);
+        updateProgress();
+        
+        setTimeout(async () => {
+            if (currentIndex + 1 < TOTAL) {
+                currentIndex++;
+                updateProgress();
+                await showTyping(() => renderBotQuestion(currentIndex));
+            } else {
+                if (quizActive) {
+                    quizActive = false;
+                    answerInput.disabled = true;
+                    sendBtn.disabled = true;
+                    if (timerInterval) clearInterval(timerInterval);
+                    showResultModal(false);
+                }
+            }
+        }, 1000);
+    }
+    
+    async function handleTextAnswer() {
+        if (!quizActive) return;
+        if (answered[currentIndex]) {
+            answerInput.value = '';
+            return;
+        }
+        const raw = answerInput.value;
+        if (!raw.trim()) return;
+        const currentQ = quizData[currentIndex];
+        const normalized = normalizeAnswer(raw, currentQ);
+        if (!normalized) {
+            const errorDiv = document.createElement('div');
+            errorDiv.classList.add('message', 'user-message');
+            errorDiv.innerHTML = `<div class="bubble user-bubble" style="background:#ffe8e8;">⚠️ Invalid. Type a, b, c, d or option name.</div>`;
+            chatMessages.appendChild(errorDiv);
+            scrollBottom();
+            answerInput.value = '';
+            setTimeout(() => errorDiv.remove(), 1300);
+            return;
+        }
+        answerInput.value = '';
+        await processAnswer(currentIndex, normalized);
+    }
+    
+    function showResultModal(isTimeOut = false) {
+        const name = studentInfo.name || "Anonymous";
+        const addr = studentInfo.address || "Not provided";
+        const phone = studentInfo.phone || "Not provided";
+        let gradeMsg = "";
+        if (score < 20) gradeMsg = "B Grade 📈";
+        else if (score >= 20 && score <= 30) gradeMsg = "A Grade ✅";
+        else if (score > 30 && score <= 40) gradeMsg = "A+ Grade ✅";
+        
+        // Save to Google Sheets (MPCI_Quiz-101) - FULLY CONNECTED
+        saveToGoogleSheet(studentInfo, score, gradeMsg, isTimeOut);
+        
+        const timeoutMsg = isTimeOut ? "<br>⏰ Quiz closed automatically: time limit of 5 minutes reached." : "";
+        const modalDetails = document.getElementById('modalResultDetails');
+        modalDetails.innerHTML = `
+            <p><strong>Student Name:</strong> ${name}</p>
+            <p><strong>Address:</strong> ${addr}</p>
+            <p><strong>Phone No:</strong> ${phone}</p>
+            <p><strong>📊 Score:</strong> ${score} / 40</p>
+            <div class="grade-badge">🎓 ${gradeMsg}</div>
+            <div class="final-marks-note">📌 The grade from this assessment will be included in your final marks.</div>
+            <span style="font-size:0.7rem;">${timeoutMsg}</span>
+        `;
+        modalOverlay.classList.add('active');
+    }
+    
+    function closeModal() {
+        modalOverlay.classList.remove('active');
+    }
+    
+    function initAssessment() {
+        const name = document.getElementById('studentName').value.trim();
+        const address = document.getElementById('studentAddress').value.trim();
+        const phone = document.getElementById('studentPhone').value.trim();
+        let date = document.getElementById('studentDate').value;
+        if (!name) { alert("Please enter Student Name"); return; }
+        if (!phone) { alert("Please enter Phone Number"); return; }
+        if (!validatePhone(phone)) {
+            phoneError.style.display = "block";
+            return;
+        } else {
+            phoneError.style.display = "none";
+        }
+        if (!date) {
+            const today = new Date().toISOString().split('T')[0];
+            date = today;
+        }
+        studentInfo = { name, address, phone, date };
+        formSection.classList.add('hidden');
+        quizSection.classList.remove('hidden');
+        currentIndex = 0;
+        quizActive = true;
+        quizAutoClosed = false;
+        answered.fill(false);
+        selectedAns.fill(null);
+        score = 0;
+        timeLeft = 300;
+        updateTimerDisplay();
+        startGlobalTimer();
+        chatMessages.innerHTML = '';
+        answerInput.disabled = false;
+        sendBtn.disabled = false;
+        answerInput.value = '';
+        updateProgress();
+        showTyping(() => renderBotQuestion(0));
+    }
+    
+    startBtn.addEventListener('click', initAssessment);
+    sendBtn.addEventListener('click', handleTextAnswer);
+    answerInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleTextAnswer(); });
+    closeModalBtn.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) closeModal(); });
+    phoneInput.addEventListener('input', () => {
+        if (validatePhone(phoneInput.value.trim())) phoneError.style.display = "none";
+        else if (phoneInput.value.trim().length > 0) phoneError.style.display = "block";
+        else phoneError.style.display = "none";
+    });
+    const todayDate = new Date().toISOString().split('T')[0];
+    document.getElementById('studentDate').value = todayDate;
+</script>
+</body>
+</html>
